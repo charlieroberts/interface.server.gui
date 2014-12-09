@@ -1,0 +1,56 @@
+<html>
+<head>
+  <script src='interface.js'></script>
+</head>
+<body>
+  <script>
+    // The Interface.js simple server outputs all OSC messages to port 8082. See the README for more information.
+    
+    // You can manually send OSC messages with the following syntax:
+    // Interface.OSC.send('/test', 'f', 5.7);
+    
+    panel = new Interface.Panel({ useRelativeSizesAndPositions: true });
+    
+    // send a message to the address '/button'
+    a = new Interface.Button({
+      bounds:[0,0,1,.5],
+      mode:'toggle',
+      target:"OSC",
+      name:'button'
+    })
+    
+    // send a message to the address '/slider'
+    b = new Interface.Slider({
+      bounds:[0,.5,1,.5],
+      isVertical:false,
+      target:"OSC",
+      name:'slider'
+    })
+    panel.add( a, b );
+    
+    // override to process OSC messages. By default, if a message is received with the
+    // same address as the key of one of the widgets (here /button and /slider) the value
+    // of that widget will be set using the parameters of the received OSC message.
+    
+    Interface.OSC.receive = function( address, typetags, parameters ) {
+      console.log( address, typetags, parameters )
+    }
+    
+    var device = {
+      name:'mydevice',
+      inputs:{},
+      outputs:{}
+    }
+  
+    Interface.Socket.onopen = function() {
+      for( var i = 0; i < panel.children.length; i++ ) {
+        var widget = panel.children[i]
+        console.log( "WIDGET", widget )
+        device.outputs[ widget.name ] = { min: widget.min, max:widget.max }
+      }
+      
+      Interface.Socket.send( JSON.stringify({ address:'/interface/ioManager/createDevice', values:[ device ] }) )
+    }
+  </script>
+</body>
+</html>
