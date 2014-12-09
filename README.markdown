@@ -1,19 +1,9 @@
-#interface.server.gamepad
+#interface.server.gui
 
-This module is designed to work with interface.server, but can also be used standalone. Currently only three joysticks are supported: Logitech Dual Action, Logitech RumblePad and the Mega World Thrustmaster.
+This module provides browser-based GUIs to Interface.Server. To test it, first make sure you've installed Interface.Server. Then:
 
-Usage:
-
-```javascript
-var ISG = require('../index.js')
-
-ISG.onload = function() {
-  var gamepad = ISG.devices( 'Logitech USB RumblePad 2 USB #1' )
-  
-  gamepad.on( 'leftX', function( d ){ console.log( "left x value",  d ) } )
-}
-```
-
-All device names are suffixed with a number in case there is more than one of the same device on a system.
-
-Devices are organized by manufactured / product in the `devices` directory. You can look at those files to see the names of signals to subscribe to.
+- config interface server to use the gui module by uncommenting it in config.js
+- Run interface.server
+- direct a webbrowser to http://localhost:10080 (10080 is default port assigned in interface.server's config.js file) 
+- run the test script using `node test.js`
+- move the slider in the browser interface. you should see osc messages appear in the terminal window running `test.js`
