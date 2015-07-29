@@ -16,7 +16,6 @@ The GUI IO generates browser-based GUIs by wrapping the interface.js library
         static            = require( 'serve-static' ),
         oscMin            = require( 'osc-min' ),
         udp               = require( 'dgram' ),
-        //osc               = new omgosc.UdpSender( '127.0.0.1', oscOutPort ),
         clients_in        = null, //new ws.Server({ port:socketPort }),
         clients           = {},
         root              = __dirname + "/node_modules/interface.js/server/interfaces",

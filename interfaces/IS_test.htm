@@ -45,12 +45,12 @@
     Interface.Socket.onopen = function() {
       for( var i = 0; i < panel.children.length; i++ ) {
         var widget = panel.children[i]
-        console.log( "WIDGET", widget )
         device.outputs[ widget.name ] = { min: widget.min, max:widget.max }
       }
       
       Interface.Socket.send( JSON.stringify({ address:'/interface/ioManager/createDevice', values:[ device ] }) )
     }
+    
   </script>
 </body>
 </html>
