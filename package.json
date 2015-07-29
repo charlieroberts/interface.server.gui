@@ -1,6 +1,6 @@
 {
   "name": "interface.server.gui",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "GUI component for interface.server",
   "main": "gui.js",
   "directories": {
